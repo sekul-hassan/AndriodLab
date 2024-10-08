@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity } fr
 import { auth } from '../../firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
-const AuthScreen = () => {
+const AuthScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSignUp, setIsSignUp] = useState(true);
@@ -16,6 +16,7 @@ const AuthScreen = () => {
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
                 Alert.alert('User logged in successfully!');
+                navigation.navigate('Form');
             }
         } catch (error) {
             Alert.alert(error.message);
@@ -53,9 +54,9 @@ const AuthScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        marginTop: -55,
-        padding: 20,
+        padding:20,
+        paddingTop: 160,
+
         backgroundColor: '#E6F0FF',
     },
     title: {
