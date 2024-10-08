@@ -1,23 +1,24 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Home from './src/pages/Home';
-import About from './src/pages/About';
-import Menu from './src/components/Menu'; // Adjust path as needed
-
-const Stack = createStackNavigator();
+import { View, Text, StyleSheet } from 'react-native';
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                screenOptions={{
-                    header: () => <Menu />,
-                }}
-            >
-                <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="About" component={About} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <View style={styles.container}>
+            <Text style={styles.text}>Hello</Text>
+        </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#E6F0FF', // Light background color
+    },
+    text: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#333', // Dark text color
+    },
+});
