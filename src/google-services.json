@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550864394076",
+    "project_id": "register-automation-24214",
+    "storage_bucket": "register-automation-24214.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550864394076:android:1dfc07cca7786373815399",
+        "android_client_info": {
+          "package_name": "com.registerautomation"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8EcXai0etanT90ALQZ3jOoly30VL1vW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

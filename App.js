@@ -13,8 +13,14 @@ import Home from "./src/pages/Student/Home";
 import Transaction from "./src/pages/Student/Transaction";
 import Notification from "./src/pages/Student/Notification";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"; // Adjust path as needed
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { AuthProvider } from "./src/components/AuthContext";
+import AuthScreen from './src/components/AuthScreen';
+import FormScreen from './src/components/FormScreen';
 
 const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
+
 export default function App() {
 
     const [fontsLoading] = useFonts ({
@@ -29,16 +35,13 @@ export default function App() {
 
 
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-
-                <Stack.Screen name="/" component={LandingPage} />
-                <Stack.Screen name="/signin" component={SignIn} />
-                <Stack.Screen name="/signup" component={SignUp} />
-                <Stack.Screen name="/forgot" component={Forgot} />
-                <Stack.Screen name="/home" component={TabsLayout} />
-            </Stack.Navigator>
-
-        </NavigationContainer>
+        <AuthProvider>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="Auth">
+                    <Stack.Screen name="Auth" component={AuthScreen} />
+                    <Stack.Screen name="Form" component={FormScreen} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </AuthProvider>
     );
 }
