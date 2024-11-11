@@ -11,7 +11,6 @@ const CategoryItem = ({ category, onCategoryPress }) => {
                     source={{ uri: category.iconURL }}
                     style={styles.icon}
                     onError={() => {
-                        // Handle image error if needed
                     }}
                 />
             </View>

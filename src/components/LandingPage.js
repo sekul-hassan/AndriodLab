@@ -14,7 +14,7 @@ function LandingPage(props) {
     const navigation = useNavigation();
 
     return (
-        <ScrollView>
+        <View>
             <Image
                 source={require("../assets/Images/Ai4.jpg")}
                 style={{
@@ -52,7 +52,7 @@ function LandingPage(props) {
                     </Text>
                 </TouchableOpacity>
             </View>
-        </ScrollView>
+        </View>
     );
 }
 

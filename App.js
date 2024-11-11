@@ -8,6 +8,11 @@ import SignIn from "./src/pages/SignIn";
 import SignUp from "./src/pages/SignUp";
 import Forgot from "./src/pages/Forgot";
 import TabsLayout from "./src/components/Student/TabNavigation/TabsLayout";
+import Semester from './src/pages/Student/Semester';
+import SemesterDetails from './src/pages/Student/SemesterDetails';
+import Certificate from './src/pages/Student/Certificate';
+import RetakeExamForm from './src/pages/Student/RetakeExam';
+import Examschedule from './src/pages/Student/Examschedule';
 
 const Stack = createStackNavigator();
 
@@ -31,7 +36,13 @@ export default function App() {
                 <Stack.Screen name="/signin" component={SignIn} />
                 <Stack.Screen name="/signup" component={SignUp} />
                 <Stack.Screen name="/forgot" component={Forgot} />
+                <Stack.Screen name="/semester" component={Semester} />
+                <Stack.Screen name="/semesterDetails" component={SemesterDetails} />
                 <Stack.Screen name="/tab-layout" component={TabsLayout} />
+                <Stack.Screen name="/certificate" component={Certificate} />
+                <Stack.Screen name="/retakeexam" component={RetakeExamForm} />
+                <Stack.Screen name="/examschedule" component={Examschedule} />
+
             </Stack.Navigator>
         </NavigationContainer>
     );

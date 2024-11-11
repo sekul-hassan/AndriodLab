@@ -3,6 +3,7 @@ import {TextInput, View,StyleSheet,Text} from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Fontisto from '@expo/vector-icons/Fontisto';
+import { Colors } from '../../../assets/Colors';
 
 const Header = () => {
 
@@ -12,7 +13,7 @@ const Header = () => {
         <View style={{
             padding:20,
             paddingTop:60,
-            backgroundColor:'#40A2D8',
+            backgroundColor:Colors.BLACK ,
             borderBottomRightRadius:20,
             borderBottomLeftRadius:20,
         }} >
@@ -20,9 +21,9 @@ const Header = () => {
 
                 display:'flex',
                 flexDirection:'row',
-                gap:10,
-                alignItems:'center'
-
+                gap:20,
+                alignItems:'center',
+              
             }} >
                 <FontAwesome name="user" size={50} color="white" style={{width:45,height:45,borderRadius:99}} />
                 <View>
@@ -31,12 +32,12 @@ const Header = () => {
                             fontSize:14,
                             fontFamily:'outfit-bold',
                             color:'white'
-                        }} >Welcome ,</Text>
+                        }} >Welcome,</Text>
                     <Text style={{
                         fontSize:19,
                         fontFamily:'outfit-bold',
                         color:'white'
-                    }} >kasjdfksjfkdsjf</Text>
+                    }} >Toufik Hasan Labib</Text>
                 </View>
 
                 <View style={{marginLeft:100}} >

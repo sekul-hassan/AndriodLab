@@ -13,7 +13,7 @@ function Notification(props) {
 
     return (
         <Fragment>
-            <HeaderShared/>
+            <HeaderShared name={"Notification"} />
             <NotificationList/>
         </Fragment>
     );
