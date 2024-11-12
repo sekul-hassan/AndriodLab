@@ -1,16 +1,17 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect, useContext} from 'react';
 import {useNavigation} from "@react-navigation/native";
 import {useRouter} from "expo-router";
 import {ActivityIndicator, TextInput, TouchableOpacity, View,StyleSheet,Text} from "react-native";
 import {Colors} from "../assets/Colors";
+import { FirebaseContext } from '../../Context/AuthProvider';
 
 const Forgot = () => {
 
-    const [password,setPassword]= useState();
-    const [loading, setLoading] = useState(false);
+
+
     const [email, setEmail] = useState();
     const navigation = useNavigation();
-
+    const {loading ,setLoading,resetPass} = useContext(FirebaseContext);
 
     useEffect(()=>{
         navigation.setOptions({
@@ -18,18 +19,18 @@ const Forgot = () => {
         })
     },[])
 
-    const handelResetemail = () =>{
-        setLoading(true);
-        // sendPasswordResetEmail(auth, email)
-        //     .then(() => {
-        //         setLoading(false);
-        //     })
-        //     .catch((error) => {
-        //
-        //         const errorMessage = error.message;
-        //         console.log(errorMessage);
-        //         setLoading(false);
-        //     });
+    const handelResetPass = () => {
+        console.log("Resetting password for email:", email);
+        resetPass(email)
+        .then(() => {
+            setEmail('');
+            setLoading(false);
+            navigation.navigate('/signin');
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            console.error("Error resetting password:", errorMessage);
+        });
     }
 
     return (
@@ -75,7 +76,7 @@ const Forgot = () => {
             </View>
 
             <TouchableOpacity
-                onPress={handelResetemail}
+                onPress={handelResetPass}
                 style={{
                     padding:18,
                     backgroundColor:Colors.BLACK,
@@ -97,7 +98,7 @@ const Forgot = () => {
 
 
 
-
+          
         </View>
     )
 };

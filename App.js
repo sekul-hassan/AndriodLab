@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {Text} from "react-native";
@@ -13,11 +13,15 @@ import SemesterDetails from './src/pages/Student/SemesterDetails';
 import Certificate from './src/pages/Student/Certificate';
 import RetakeExamForm from './src/pages/Student/RetakeExam';
 import Examschedule from './src/pages/Student/Examschedule';
+import AuthProvider, { FirebaseContext } from './Context/AuthProvider';
+
 
 const Stack = createStackNavigator();
 
 export default function App() {
 
+    const {user} = useContext(FirebaseContext);
+    const {examcontroloffice, setExamcontroloffice} = useState();   
     const [fontsLoading] = useFonts ({
         'outfit-regular':require('./assets/fonts/Outfit-Regular.ttf'),
         'outfit-medium':require('./assets/fonts/Outfit-Medium.ttf'),
@@ -30,20 +34,35 @@ export default function App() {
 
 
     return (
+
+
+
+<AuthProvider>
         <NavigationContainer>
             <Stack.Navigator initialRouteName="/">
                 <Stack.Screen name="/" component={LandingPage} />
                 <Stack.Screen name="/signin" component={SignIn} />
                 <Stack.Screen name="/signup" component={SignUp} />
                 <Stack.Screen name="/forgot" component={Forgot} />
-                <Stack.Screen name="/semester" component={Semester} />
+        
+            <Stack.Screen name="/semester" component={Semester} />
                 <Stack.Screen name="/semesterDetails" component={SemesterDetails} />
                 <Stack.Screen name="/tab-layout" component={TabsLayout} />
                 <Stack.Screen name="/certificate" component={Certificate} />
                 <Stack.Screen name="/retakeexam" component={RetakeExamForm} />
                 <Stack.Screen name="/examschedule" component={Examschedule} />
-
+                    
+                
+ 
             </Stack.Navigator>
+          
         </NavigationContainer>
+     
+        </AuthProvider>
+        
+   
+    
+
+        
     );
 }

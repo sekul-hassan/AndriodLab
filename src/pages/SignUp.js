@@ -1,18 +1,19 @@
-import React,{useEffect,useState} from 'react';
-import {useRouter} from "expo-router";
+import React,{useContext, useEffect,useState} from 'react';
+
 import {useNavigation} from "@react-navigation/native";
 import {TextInput, TouchableOpacity, View, StyleSheet, Text, ActivityIndicator} from "react-native";
 import {Colors} from "../assets/Colors";
+import { FirebaseContext } from '../../Context/AuthProvider';
+
 
 const SignUp = () => {
 
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [loading, setLoading] = useState(false);
-    const [user, setUser] = useState();
+    const {register,loading,setLoading,logout } = useContext(FirebaseContext);
     const navigation = useNavigation();
-    const router = useRouter();
+   
     useEffect(() => {
         navigation.setOptions({
             headerShown: false
@@ -20,22 +21,23 @@ const SignUp = () => {
     }, []);
 
 
-    const handleSignup = () => {
-        setLoading(true);
-        // createUserWithEmailAndPassword(auth, email, password)
-        //     .then((userCredential) => {
-        //         setLoading(false);
-        //         router.replace('auth/SignIn');
-        //     })
-        //     .catch((error) => {
-        //         const errorMessage = error.message;
-        //         console.log(errorMessage);
-        //         setLoading(false);
-        //     });
-
-
-    };
-
+    const handelSignup = () =>{
+        register(email,password)
+       .then((userCredential) => {
+        const user = userCredential.user;
+       navigation.navigate('/signin');
+         logout();
+         setEmail('');
+         setName('');
+         setPassword('');
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        setLoading(false);
+      });
+    
+       }
     return (
         <View style={{
             padding: 30, marginTop: 30,
@@ -101,7 +103,7 @@ const SignUp = () => {
 
 
             <TouchableOpacity
-                onPress={handleSignup}
+                onPress={handelSignup}
                 style={{
                     padding: 18,
                     backgroundColor: Colors.BLACK,
@@ -122,10 +124,6 @@ const SignUp = () => {
 
 
             </TouchableOpacity >
-
-
-
-
 
 
             <TouchableOpacity onPress={() => navigation.navigate("/signin")} style={{

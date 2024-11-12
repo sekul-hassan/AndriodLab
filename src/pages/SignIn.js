@@ -1,18 +1,18 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect, useContext} from 'react';
 import {ScrollView, View, Text, TouchableOpacity, TextInput, StyleSheet, ActivityIndicator} from "react-native";
 import {Colors} from "../assets/Colors";
 import {useNavigation} from "@react-navigation/native";
 import {useRouter} from "expo-router";
+import { FirebaseContext } from '../../Context/AuthProvider';
 
 function SignIn(props) {
 
 
     const [email,setEmail]= useState();
     const [password,setPassword]= useState();
-    const [loading, setLoading] = useState(false);
     const [user,setUser] = useState(null);
     const navigation = useNavigation();
-    const router = useRouter();
+    const {login,loading ,setLoading} = useContext(FirebaseContext);
 
     useEffect(()=>{
         navigation.setOptions({
@@ -20,25 +20,23 @@ function SignIn(props) {
         })
     },[])
 
+    const handelLogin = () => {
 
-    const handelLogin = () =>{
-        // setLoading(true);
-        // signInWithEmailAndPassword(auth, email, password)
-        //     .then((userCredential) => {
-        //         // Signed in
-        //         const user = userCredential.user;
-        //         router.replace('/home');
-        //         console.log(user);
-        //         setLoading(false);
-        //
-        //     })
-        //     .catch((error) => {
-        //         const errorCode = error.code;
-        //         const errorMessage = error.message;
-        //         setLoading(false);
-        //     });
-
-    }
+        login(email,password)
+        .then((userCredential) => {
+          setEmail('');
+         setPassword('');
+         setLoading(false);
+         navigation.navigate("/tab-layout");
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          setLoading(false);
+        });
+    
+    
+    
+        }
 
     return (
         <ScrollView style={{padding:30,
@@ -100,7 +98,8 @@ function SignIn(props) {
                 </View>
 
                 <TouchableOpacity
-                    onPress={()=>navigation.navigate("/tab-layout")}
+                 
+                    onPress={handelLogin}
                     style={{
                         padding:18,
                         backgroundColor:Colors.BLACK,
