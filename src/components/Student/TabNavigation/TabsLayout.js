@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "../../../pages/Student/Home";
 import Transaction from "../../../pages/Student/Transaction";

@@ -1,336 +1,329 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker'; // Import DropDownPicker
+import { Colors } from '../../assets/Colors'; // Assuming you have a Colors file
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { Colors } from '../../assets/Colors';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
-const semesters =  [
-    {
-      "id": 1,
-      "semesterNumber": "1-1",
-      "credit": 15,
-      "semesterCourses": [
-        {
-          "courseId": "CSE101",
-          "courseName": "Introduction to Programming",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "MTH101",
-          "courseName": "Calculus I",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "PHY101",
-          "courseName": "Physics I",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "ENG101",
-          "courseName": "English Composition",
-          "courseCredit": 2
-        },
-        {
-          "courseId": "CHEM101",
-          "courseName": "Chemistry I",
-          "courseCredit": 3
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "semesterNumber":"1-2",
-      "credit": 18,
-      "semesterCourses": [
-        {
-          "courseId": "CSE102",
-          "courseName": "Data Structures",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "MTH102",
-          "courseName": "Calculus II",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "PHY102",
-          "courseName": "Physics II",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "ENG102",
-          "courseName": "Technical Writing",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "SOC101",
-          "courseName": "Introduction to Sociology",
-          "courseCredit": 3
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "semesterNumber": "2-1",
-      "credit": 17,
-      "semesterCourses": [
-        {
-          "courseId": "CSE201",
-          "courseName": "Algorithms",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "MTH201",
-          "courseName": "Linear Algebra",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "PHY201",
-          "courseName": "Electromagnetism",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "CHEM201",
-          "courseName": "Organic Chemistry",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "HUM101",
-          "courseName": "Ethics",
-          "courseCredit": 3
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "semesterNumber": "2-2",
-      "credit": 16,
-      "semesterCourses": [
-        {
-          "courseId": "CSE202",
-          "courseName": "Database Systems",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "MTH202",
-          "courseName": "Probability and Statistics",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "ENG201",
-          "courseName": "Advanced Composition",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "BIO101",
-          "courseName": "Biology",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "ART101",
-          "courseName": "Art Appreciation",
-          "courseCredit": 2
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "semesterNumber": "3-1",
-      "credit": 15,
-      "semesterCourses": [
-        {
-          "courseId": "CSE301",
-          "courseName": "Operating Systems",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "MTH301",
-          "courseName": "Discrete Mathematics",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "PHY301",
-          "courseName": "Quantum Mechanics",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "HIS101",
-          "courseName": "World History",
-          "courseCredit": 2
-        },
-        {
-          "courseId": "ECO101",
-          "courseName": "Economics",
-          "courseCredit": 2
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "semesterNumber": "3-2",
-      "credit": 18,
-      "semesterCourses": [
-        {
-          "courseId": "CSE302",
-          "courseName": "Computer Networks",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "MTH302",
-          "courseName": "Numerical Analysis",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "ENG301",
-          "courseName": "Professional Communication",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "PSY101",
-          "courseName": "Psychology",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "SOC102",
-          "courseName": "Social Psychology",
-          "courseCredit": 4
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "semesterNumber": "4-1",
-      "credit": 17,
-      "semesterCourses": [
-        {
-          "courseId": "CSE401",
-          "courseName": "Machine Learning",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "MTH401",
-          "courseName": "Optimization",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "PHY401",
-          "courseName": "Thermodynamics",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "HUM201",
-          "courseName": "Philosophy",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "CHEM301",
-          "courseName": "Inorganic Chemistry",
-          "courseCredit": 3
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "semesterNumber": "4-2",
-      "credit": 15,
-      "semesterCourses": [
-        {
-          "courseId": "CSE402",
-          "courseName": "Software Engineering",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "MTH402",
-          "courseName": "Complex Analysis",
-          "courseCredit": 4
-        },
-        {
-          "courseId": "PHY402",
-          "courseName": "Nuclear Physics",
-          "courseCredit": 3
-        },
-        {
-          "courseId": "HIS102",
-          "courseName": "Modern History",
-          "courseCredit": 2
-        },
-        {
-          "courseId": "ECO201",
-          "courseName": "Advanced Economics",
-          "courseCredit": 2
-        }
-      ]
-    }
-  ]
+const Semester = () => {
+  // State to hold the student's name, exam roll number, registration roll, selected courses, and selected semester
+  const [fullName, setFullName] = useState('');
+  const [examRoll, setExamRoll] = useState('');
+  const [registrationRoll, setRegistrationRoll] = useState(''); // Added state for registration roll
+  const [selectedCourses, setSelectedCourses] = useState([]);
+  const [selectedSemester, setSelectedSemester] = useState(''); // Default value set to ''
+  const [openSession, setOpenSession] = useState(false); // State to control dropdown visibility
 
-  const Semester = () => {
-    useEffect(()=>{
-        navigation.setOptions({
-            headerShown : false
-        })
-    },[])
+  // List of courses for each semester with credit and Tk values
+  const coursesData = {
+    'Semester 1': [
+      { name: 'Mathematics I', credit: 3, Tk: 50 },
+      { name: 'Physics', credit: 3, Tk: 50 },
+      { name: 'English', credit: 3, Tk: 50 },
+      { name: 'Structured Programming', credit: 3, Tk: 50 },
+      { name: 'Structured Programming Laboratory', credit: 1, Tk: 50 },
+      { name: 'Electrical Circuits', credit: 3, Tk: 50 },
+      { name: 'Electrical Circuits Laboratory', credit: 1, Tk: 60 },
+      { name: 'Computer Aided Engineering Drawing Laboratory', credit: 1, Tk: 60 },
+      { name: 'Viva-Voce ', credit: 1, Tk: 60 },
+    ],
+    'Semester 2': [
+      { name: 'Viva-Voce', credit: 3, Tk: 90 },
+      { name: 'Mathematics II', credit: 4, Tk: 150 },
+      { name: 'Discrete Mathematics', credit: 2, Tk: 80 },
+      { name: 'Data Structures', credit: 2, Tk: 80 },
+      { name: 'Data Structures Laboratory', credit: 2, Tk: 80 },
+      { name: 'Electronic Devices and Circuits-I ', credit: 2, Tk: 80 },
+      { name: 'Electronic Devices and Circuits-I Laboratory ', credit: 2, Tk: 80 },
+      { name: 'Object Oriented Programming (C++)', credit: 2, Tk: 80 },
+      { name: 'Object Oriented Programming (C++) Laboratory', credit: 2, Tk: 80 },
+      { name: 'Technical Writing and Presentation Laboratory', credit: 1, Tk: 60 },
+    ],
+    'Semester 3': [
+      { name: 'Advanced Mathematics', credit: 4, Tk: 130 },
+      { name: 'Astronomy', credit: 3, Tk: 110 },
+      { name: 'Machine Learning', credit: 5, Tk: 200 },
+    ],
+  };
 
-    
-    const navigation = useNavigation();
+  // Function to handle course selection
+  const handleCourseSelect = (course) => {
+    setSelectedCourses((prevCourses) => {
+      if (prevCourses.includes(course.name)) {
+        return prevCourses.filter((item) => item !== course.name); 
+      } else {
+        return [...prevCourses, course.name];
+      }
+    });
+  };
 
-    const renderSemester = ({ item }) => (
-      <TouchableOpacity
-        style={styles.semesterItem}
-        onPress={() => navigation.navigate('/semesterDetails', {semester : item})}
+  // Calculate total Tk for selected courses
+  const calculateTotalTk = () => {
+    let total = 0;
+    selectedCourses.forEach((courseName) => {
+      const course = coursesData[selectedSemester].find((course) => course.name === courseName);
+      if (course) {
+        total += course.Tk;
+      }
+    });
+    return total;
+  };
+
+  const handleSubmit = () => {
+    console.log('Full Name:', fullName);
+    console.log('Registration Roll:', registrationRoll); 
+    console.log('Exam Roll:', examRoll);
+    console.log('Selected Semester:', selectedSemester);
+    console.log('Selected Courses:', selectedCourses);
+    console.log('Number of Courses:', selectedCourses.length);
+    console.log('Total Tk:', calculateTotalTk());
+  };
+
+  const semesterItems = [
+    { label: 'Select a Semester', }, 
+    { label: 'Semester 1', value: 'Semester 1' },
+    { label: 'Semester 2', value: 'Semester 2' },
+    { label: 'Semester 3', value: 'Semester 3' },
+    { label: 'Semester 4', value: 'Semester 4' },
+    { label: 'Semester 5', value: 'Semester 5' },
+    { label: 'Semester 6', value: 'Semester 6' },
+    { label: 'Semester 7', value: 'Semester 7' },
+    { label: 'Semester 8', value: 'Semester 8' },
+
+  ];
+
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false
+    });
+  }, []);
+
+  return (
+   <ScrollView>
+     <View  style={{
+      padding: 30,
+      backgroundColor: Colors.WHITE,
+      height: '100%',
+      paddingTop: 80,
+    }}>
+      <Text
+        style={{
+          fontFamily: 'outfit-bold',
+          fontSize: 30,
+          textAlign: 'center'
+        }}
       >
-       <View >
-        <Text style={styles.semesterText} >Semester :{item.semesterNumber}</Text>
-        <Text style={styles.semesterText} >Credit: {item.credit}</Text>
-      
-       </View>
-      </TouchableOpacity>
-    );
-  
-    return (
-      <View style={styles.container}>
-        
-        <Text style={styles.title}>Labib all semester</Text>
-        <FlatList
-          data={semesters}
-          renderItem={renderSemester}
-          keyExtractor={item => item.id.toString()}
+        Semester Form Fill Up 
+      </Text>
+
+      {/* Student Full Name Input */}
+      <View style={styles.inputContainer}>
+        <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Full Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter Your Full Name"
+          value={fullName}
+          onChangeText={setFullName}
         />
       </View>
-    );
-  };
-  
+
+      {/* Registration Roll */}
+      <View >
+        <Text style={{ fontFamily: 'outfit-medium', marginVertical: 5 }}>Registration Roll</Text>
+        <TextInput
+          
+          style={styles.input}
+          placeholder='Enter Registration Number'
+          value={registrationRoll}
+          onChangeText={setRegistrationRoll} // Update state when text changes
+        />
+      </View>
+
+      {/* Exam Roll */}
+      <View style={{ marginTop: 10 }}>
+        <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Exam Roll</Text>
+        <TextInput
+         
+          style={styles.input}
+          placeholder='Enter Your Exam Roll'
+          value={examRoll}
+          onChangeText={setExamRoll} // Update state when text changes
+        />
+      </View>
+
+      {/* Semester Selection using DropDownPicker */}
+      <View style={styles.inputContainer}>
+        <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Select Semester</Text>
+        <DropDownPicker
+          open={openSession} 
+          setOpen={setOpenSession} 
+          value={selectedSemester} 
+          items={semesterItems} 
+          setValue={setSelectedSemester} 
+          style={{ borderColor: Colors.GRAY, borderWidth: 2, borderRadius: 10, padding: 10 }}
+          placeholder="Select a Semester"
+        />
+      </View>
+
+      {/* Course Selection (only if a semester is selected) */}
+      {selectedSemester ? (
+        <View style={styles.coursesContainer}>
+          <Text style={styles.label}>Select Courses for Retake:</Text>
+          {coursesData[selectedSemester].map((course, index) => (
+            <View key={index} style={styles.checkboxContainer}>
+              <TouchableOpacity
+                style={styles.checkbox}
+                onPress={() => handleCourseSelect(course)}
+              >
+                <View style={styles.courseRow}>
+                  {/* Course Name */}
+                  <Text style={styles.courseText}>
+                    {selectedCourses.includes(course.name) ? (
+                      <AntDesign name="checkcircleo" size={20} color="black" />
+                    ) : (
+                      <AntDesign name="pluscircleo" size={20} color="black" />
+                    )}
+                    {course.name}
+                  </Text>
+
+                  {/* Credit and Tk display */}
+                  <View style={styles.courseDetails}>
+                    <Text style={styles.courseDetailsText}>Credits: {course.credit}</Text>
+                    <Text style={styles.courseDetailsText}>Tk: ${course.Tk}</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      ) : (
+        <></>
+      )}
+
+     {/* Display the Number of Courses Selected */}
+<View style={styles.resultContainer}>
+  <View style={styles.resultItem}>
+    <Text style={styles.resultText}>
+      Number of Courses for Retake: {selectedCourses.length}
+    </Text>
+  </View>
+
+  {/* Display the Total Tk */}
+  <View style={styles.resultItem}>
+    <Text style={styles.resultText}>
+      Total Tk: ${calculateTotalTk()}
+    </Text>
+  </View>
+</View>
+
+
+      {/* Submit Button */}
+      <TouchableOpacity
+        style={{
+          padding: 18,
+          backgroundColor: Colors.BLACK,
+          borderRadius: 10,
+          marginTop: 30,
+        }}
+        onPress={handleSubmit} 
+      >
+        <Text style={{
+          color: Colors.WHITE,
+          fontFamily: 'outfit-medium',
+          textAlign: 'center',
+        }}>Submit</Text>
+      </TouchableOpacity>
+    </View>
+   </ScrollView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 20,
     backgroundColor: '#fff',
-    marginTop:40,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  semesterItem: {
-    padding: 15,
-    backgroundColor: Colors.SKY,
-    borderRadius: 5,
-    marginVertical: 5,
-  },
-  semesterText: {
+  label: {
     fontSize: 16,
+    marginBottom: 8,
+    fontFamily: 'outfit-medium',
   },
-  courseContainer: {
-    marginTop: 20,
+  inputContainer: {
+    marginBottom: 5,
+    marginTop:10,
   },
-  courseHeader: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
+  input: {
+    borderRadius: 10,
+    borderWidth: 2,
+    paddingLeft: 10,
+    padding: 10,
+    borderColor: Colors.GRAY,
+  },
+  checkboxContainer: {
+    marginBottom: 15,  // Increased space between items
+  },
+  checkbox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Ensures space between course name and details
+    paddingVertical: 10,
+  },
+  courseRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
   },
   courseText: {
     fontSize: 16,
+    fontFamily: 'outfit-medium',
+    flex: 1, // Ensures course name takes up available space
+    marginRight: 10,  // Adds space between course name and the right section (credit and Tk)
+  },
+  courseDetails: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end', // Align credits and Tk to the right
+    alignItems: 'center',
+  },
+  courseDetailsText: {
+    fontSize: 14,
+    fontFamily: 'outfit-regular',
+    marginLeft: 10, // Adds space between the credit and Tk
+  },
+  resultContainer: {
+    marginTop: 20,
+    flexDirection: 'row',  // Align the two items horizontally
+    justifyContent: 'space-between',  // Space between the items
+    alignItems: 'center',  // Align vertically in the center
+  },
+  resultItem: {
+    flex: 1,  // Ensure items take equal space
+    justifyContent: 'center',
+  },
+  resultText: {
+    fontSize: 18,
+    fontFamily: 'outfit-medium',
+    textAlign: 'center',
+  },
+  resultContainer: {
+    marginTop: 20,
+    flexDirection: 'row', // Arrange the two items (number of courses and total Tk) horizontally
+    justifyContent: 'space-between',  // Add space between the two items (left and right)
+    alignItems: 'center',  // Vertically center the items
+    width: '100%', // Ensure the container takes up full width
+  },
+  resultItem: {
+    flex: 1,  // Each result item will take equal width
+    justifyContent: 'center',  // Vertically center the text within each result item
+    alignItems: 'center',  
+  },
+  resultText: {
+    fontSize: 18,
+    fontFamily: 'outfit-medium',
+    textAlign: 'center',  
   },
 });
 
 export default Semester;
+
