@@ -5,11 +5,10 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const HeaderShared = ({name}) => {
 
-    // const user = auth.currentUser;
+   
     return (
         <View style={{
             padding:20,
-            paddingTop:40,
             backgroundColor: Colors.BLACK,
             borderBottomRightRadius:20,
             borderBottomLeftRadius:20,

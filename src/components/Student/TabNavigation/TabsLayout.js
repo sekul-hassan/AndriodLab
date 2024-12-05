@@ -37,7 +37,7 @@ function TabsLayout(props) {
                         iconName = 'person-outline';
                     }
 
-                    return <Icon name={iconName} size={30} color={'balck'} />;
+                    return <Icon name={iconName}  size={30} color={'balck'} />;
                 },
             })}
         >

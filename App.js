@@ -51,9 +51,9 @@ export default function App() {
                 <Stack.Screen name="/forgot" component={Forgot} />
                 <Stack.Screen name="/semester" component={Semester} />
                 <Stack.Screen name="/semesterDetails" component={SemesterDetails} />
-                <Stack.Screen name="/tab-layout" component={TabsLayout} />
                 <Stack.Screen name="/certificate" component={Certificate} />
                 <Stack.Screen name="/retakeexam" component={RetakeExamForm} />
+                <Stack.Screen name="/tab-layout" component={TabsLayout} />
                 <Stack.Screen name="/examschedule" component={Examschedule} /></>:
                 <>
                 {/* <Stack.Screen name="/tab-layoutExamoffice" component={TablayoutExamOffice} /> */}
@@ -62,9 +62,6 @@ export default function App() {
                 
                 </>
                }
-                    
-                
- 
             </Stack.Navigator>
           
         </NavigationContainer>
