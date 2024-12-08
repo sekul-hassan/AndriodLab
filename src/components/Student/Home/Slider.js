@@ -24,9 +24,10 @@ const Slider = () => {
     return (
         <View>
             <Text style={{
-                fontFamily: 'outfit-medium',
-                fontSize: 15,
+                fontFamily: 'outfit-bold',
+                fontSize: 16,
                 padding: 10,
+                fontWeight:20,
             }}>
                 Our University
             </Text>
@@ -51,10 +52,10 @@ const Slider = () => {
 
 const styles = StyleSheet.create({
     image: {
-        width: 300,  // Set width as needed
-        height: 160, // Set height as needed
+        width: 300, 
+        height: 160, 
         borderRadius: 15,
-        marginRight: 10, // Spacing between images
+        marginRight: 10, 
     },
 });
 

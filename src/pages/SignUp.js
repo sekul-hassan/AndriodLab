@@ -4,6 +4,8 @@ import {useNavigation} from "@react-navigation/native";
 import {TextInput, TouchableOpacity, View, StyleSheet, Text, ActivityIndicator} from "react-native";
 import {Colors} from "../assets/Colors";
 import { FirebaseContext } from '../../Context/AuthProvider';
+import axios from "axios";
+
 
 
 const SignUp = () => {
@@ -22,9 +24,28 @@ const SignUp = () => {
 
 
     const handelSignup = () =>{
+        setLoading(true);
+        axios.post("http://192.168.137.1:5000/api/user/register", { name, email, password })
+            .then((response) => {
+                console.log("Response:", response.data);
+                alert("Registration successful");
+                setLoading(false);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.error("Server responded with an error:", error.response.data);
+                } else if (error.request) {
+                    console.error("No response received from server:", error.request);
+                } else {
+                    console.error("Error in setting up request:", error.message);
+                }
+                alert("Registration failed. Please try again.");
+                setLoading(false);
+            });
         register(email,password)
        .then((userCredential) => {
         const user = userCredential.user;
+
        navigation.navigate('/signin');
          logout();
          setEmail('');
@@ -34,9 +55,8 @@ const SignUp = () => {
       .catch((error) => {
         const errorMessage = error.message;
         console.log(errorMessage);
-        setLoading(false);
+        setLoading(false)
       });
-    
        }
     return (
         <View style={{
