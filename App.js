@@ -49,11 +49,11 @@ export default function App() {
                 <Stack.Screen name="/signin" component={SignIn} />
                 <Stack.Screen name="/signup" component={SignUp} />
                 <Stack.Screen name="/forgot" component={Forgot} />
+                <Stack.Screen name="/tab-layout" component={TabsLayout} />
                 <Stack.Screen name="/semester" component={Semester} />
                 <Stack.Screen name="/semesterDetails" component={SemesterDetails} />
                 <Stack.Screen name="/certificate" component={Certificate} />
                 <Stack.Screen name="/retakeexam" component={RetakeExamForm} />
-                <Stack.Screen name="/tab-layout" component={TabsLayout} />
                 <Stack.Screen name="/examschedule" component={Examschedule} /></>:
                 <>
                 {/* <Stack.Screen name="/tab-layoutExamoffice" component={TablayoutExamOffice} /> */}

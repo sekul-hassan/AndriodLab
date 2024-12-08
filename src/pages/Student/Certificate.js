@@ -1,13 +1,11 @@
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Colors } from '../../assets/Colors'
-import { TextInput } from 'react-native-gesture-handler'
-import { TouchableOpacity } from 'react-native'
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const Certificate = () => {
-
     const [openSession, setOpenSession] = useState(false);
     const [selectedSession, setSelectedSession] = useState(null);
     const [itemsSession, setItemsSession] = useState([
@@ -31,7 +29,6 @@ const Certificate = () => {
         { label: 'semester 4-2', value: 'semester 4-2' },
     ]);
 
-  
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [registrationRoll, setRegistrationRoll] = useState('');
@@ -45,9 +42,7 @@ const Certificate = () => {
         })
     }, []);
 
-   
     const handleSubmit = () => {
-       
         const formData = {
             fullName,
             email,
@@ -59,128 +54,131 @@ const Certificate = () => {
         };
 
         console.log(formData);
-        
     };
 
     return (
-        <ScrollView style={{
-            padding: 30,
-            backgroundColor: Colors.WHITE,
-            height: '100%',
-            paddingTop: 80,
-        }} >
-            <Text
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            style={{ flex: 1, backgroundColor: Colors.WHITE }}
+        >
+            <ScrollView
                 style={{
-                    fontFamily: 'outfit-bold',
-                    fontSize: 30,
+                    padding: 30,
+                    height: '100%',
                 }}
-            >Form Fill Up</Text>
-
-            {/* Full Name Input */}
-            <View style={{ marginTop: 20 }}>
-                <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Full Name</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Enter Your Full Name'
-                    value={fullName}
-                    onChangeText={setFullName} // Update state when text changes
-                />
-            </View>
-
-            {/* Email Input */}
-            <View style={{ marginTop: 10 }}>
-                <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Email</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Enter Your Email'
-                    value={email}
-                    onChangeText={setEmail} // Update state when text changes
-                />
-            </View>
-
-            {/* Session DropDownPicker */}
-            <View style={{ marginTop: 10 }}>
-                <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Session</Text>
-                <DropDownPicker
-                    open={openSession}
-                    setOpen={setOpenSession}
-                    value={selectedSession}
-                    items={itemsSession}
-                    setValue={setSelectedSession}
-                    setItems={setItemsSession}
-                    style={{ borderColor: Colors.GRAY, borderWidth: 2, borderRadius: 10, padding: 10 }}
-                    placeholder='Select Your Session'
-                />
-            </View>
-
-            {/* Registration Roll */}
-            <View style={{ marginTop: 10 }}>
-                <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Registration Roll</Text>
-                <TextInput
-                    secureTextEntry={true}
-                    style={styles.input}
-                    placeholder='Enter Registration Number'
-                    value={registrationRoll}
-                    onChangeText={setRegistrationRoll} // Update state when text changes
-                />
-            </View>
-
-            {/* Exam Roll */}
-            <View style={{ marginTop: 10 }}>
-                <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Exam Roll</Text>
-                <TextInput
-                    secureTextEntry={true}
-                    style={styles.input}
-                    placeholder='Enter Your Exam Roll'
-                    value={examRoll}
-                    onChangeText={setExamRoll} // Update state when text changes
-                />
-            </View>
-
-            {/* Semester DropDownPicker */}
-            <View style={{ marginTop: 10 }}>
-                <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Semester</Text>
-                <DropDownPicker
-                    open={openSemester}
-                    value={selectedSemester}
-                    items={itemsSemester}
-                    setOpen={setOpenSemester}
-                    setValue={setSelectedSemester}
-                    setItems={setItemsSemester}
-                    style={{ borderColor: Colors.GRAY, borderWidth: 2, borderRadius: 10, padding: 10 }}
-                    placeholder='Select Your Semester'
-                />
-            </View>
-
-            {/* Exam Year Input */}
-            <View style={{ marginTop: 10 }}>
-                <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Exam Year</Text>
-                <TextInput
-                    secureTextEntry={true}
-                    style={styles.input}
-                    placeholder='Enter Your Exam Year'
-                    value={examYear}
-                    onChangeText={setExamYear} // Update state when text changes
-                />
-            </View>
-
-            {/* Submit Button */}
-            <TouchableOpacity
-                style={{
-                    padding: 18,
-                    backgroundColor: Colors.BLACK,
-                    borderRadius: 10,
-                    marginTop: 30,
-                }}
-                onPress={handleSubmit} // Call handleSubmit when the button is pressed
+                contentContainerStyle={{ paddingBottom: 80 }}
+                keyboardShouldPersistTaps="handled"
+                nestedScrollEnabled={true} // Enable nested scrolling
             >
-                <Text style={{
-                    color: Colors.WHITE,
-                    fontFamily: 'outfit-medium',
-                    textAlign: 'center',
-                }}>Submit</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                <Text style={{ fontFamily: 'outfit-bold', fontSize: 30 }}>
+                    Form Fill Up
+                </Text>
+
+                {/* Full Name Input */}
+                <View style={{ marginTop: 20 }}>
+                    <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Full Name</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter Your Full Name"
+                        value={fullName}
+                        onChangeText={setFullName}
+                    />
+                </View>
+
+                {/* Email Input */}
+                <View style={{ marginTop: 10 }}>
+                    <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Email</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter Your Email"
+                        value={email}
+                        onChangeText={setEmail}
+                    />
+                </View>
+
+                {/* Session DropDownPicker */}
+                <View style={{ marginTop: 10 }}>
+                    <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Session</Text>
+                    <DropDownPicker
+                        open={openSession}
+                        value={selectedSession}
+                        items={itemsSession}
+                        setOpen={setOpenSession}
+                        setValue={setSelectedSession}
+                        setItems={setItemsSession}
+                        style={styles.dropdown}
+                        placeholder="Select Your Session"
+                        dropDownContainerStyle={{ borderColor: Colors.GRAY }}
+                    />
+                </View>
+
+                {/* Registration Roll */}
+                <View style={{ marginTop: 10 }}>
+                    <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Registration Roll</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter Registration Number"
+                        value={registrationRoll}
+                        onChangeText={setRegistrationRoll}
+                    />
+                </View>
+
+                {/* Exam Roll */}
+                <View style={{ marginTop: 10 }}>
+                    <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Exam Roll</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter Your Exam Roll"
+                        value={examRoll}
+                        onChangeText={setExamRoll}
+                    />
+                </View>
+
+                {/* Semester DropDownPicker */}
+                <View style={{ marginTop: 10 }}>
+                    <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Semester</Text>
+                    <DropDownPicker
+                        open={openSemester}
+                        value={selectedSemester}
+                        items={itemsSemester}
+                        setOpen={setOpenSemester}
+                        setValue={setSelectedSemester}
+                        setItems={setItemsSemester}
+                        style={styles.dropdown}
+                        placeholder="Select Your Semester"
+                        dropDownContainerStyle={{ borderColor: Colors.GRAY }}
+                    />
+                </View>
+
+                {/* Exam Year Input */}
+                <View style={{ marginTop: 10 }}>
+                    <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Exam Year</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter Your Exam Year"
+                        value={examYear}
+                        onChangeText={setExamYear}
+                    />
+                </View>
+
+                {/* Submit Button */}
+                <TouchableOpacity
+                    style={{
+                        padding: 18,
+                        backgroundColor: Colors.BLACK,
+                        borderRadius: 10,
+                        marginTop: 30,
+                    }}
+                    onPress={handleSubmit}
+                >
+                    <Text style={{
+                        color: Colors.WHITE,
+                        fontFamily: 'outfit-medium',
+                        textAlign: 'center',
+                    }}>Submit</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
@@ -193,5 +191,11 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         padding: 10,
         borderColor: Colors.GRAY,
+    },
+    dropdown: {
+        borderColor: Colors.GRAY,
+        borderWidth: 2,
+        borderRadius: 10,
+        padding: 10,
     },
 });

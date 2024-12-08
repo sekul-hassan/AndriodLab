@@ -21,7 +21,7 @@ const Header = () => {
             </View>
 
             <View style={styles.searchBar}>
-                <Fontisto name="search" size={24} color="#40A2D8" />
+                <Fontisto name="search" size={24} color="black" />
                 <TextInput placeholder='Search..' style={styles.searchInput} />
             </View>
         </View>
@@ -72,5 +72,7 @@ const styles = StyleSheet.create({
     searchInput: {
         flex: 1, 
         marginLeft: 10,
+        color: Colors.BLACK,
+        fontFamily: 'outfit-bold',
     },
 });
