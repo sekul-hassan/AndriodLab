@@ -4,6 +4,8 @@ import {Colors} from "../assets/Colors";
 import {useNavigation} from "@react-navigation/native";
 import {useRouter} from "expo-router";
 import { FirebaseContext } from '../../Context/AuthProvider';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function SignIn(props) {
 
@@ -21,22 +23,39 @@ function SignIn(props) {
     },[])
 
     const handelLogin = () => {
+        axios.post("http://192.168.137.1:5000/api/user/login", { email, password })
+            .then((res) => {
+                const { token } = res.data; // Extract token from response
+                console.log("Response:", res.data);
+                console.log(token);
+                console.log(token.user);
+                AsyncStorage.setItem("token", token)
+                    .then(() => {
+                        // Proceed with further logic after storing the token
+                        login(email, password)
+                            .then((userCredential) => {
+                                setEmail('');
+                                setPassword('');
+                                setLoading(false);
+                                navigation.navigate("/tab-layout");
+                            })
+                            .catch((error) => {
+                                const errorMessage = error.message;
+                                setLoading(false);
+                            });
+                    })
+                    .catch((error) => {
+                        console.error("Error storing token:", error);
+                    });
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                setLoading(false);
+                console.log(errorMessage);
+            });
+    };
 
-        login(email,password)
-        .then((userCredential) => {
-          setEmail('');
-         setPassword('');
-         setLoading(false);
-         navigation.navigate("/tab-layout");
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          setLoading(false);
-        });
-    
-    
-    
-        }
+
 
     return (
         <ScrollView style={{padding:30,

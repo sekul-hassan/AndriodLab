@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   },
   courseItem: {
     padding: 10,
-    backgroundColor: Colors.LIGHT_GRAY,
+    backgroundColor: Colors.WHITE,
     borderRadius: 8,
     marginBottom: 10,
   },

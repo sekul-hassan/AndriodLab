@@ -1,11 +1,38 @@
-import React from 'react';
-import { TextInput, View, StyleSheet, Text, Dimensions } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { TextInput, View, StyleSheet, Text } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Fontisto from '@expo/vector-icons/Fontisto';
 import { Colors } from '../../../assets/Colors';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { jwtDecode } from "jwt-decode";
+
 
 const Header = () => {
+    const [name, setName] = useState("");
+
+    useEffect(() => {
+        const fetchName = async () => {
+            try {
+                const token = await AsyncStorage.getItem("token");
+                console.log("Token fetched:", token); // Check if token is fetched
+                if (token) {
+                    const decoded = jwtDecode(token);
+                    console.log(decoded);
+                    const{name,email} = decoded;
+                    setName(decoded.user.name);
+                    console.log(email);
+                } else {
+                    console.log("Token not found");
+                    setName("Guest"); // Default to "Guest" if token is not found
+                }
+            } catch (error) {
+                console.error("Failed to fetch token from AsyncStorage:", error);
+            }
+        };
+        fetchName();
+    }, []);
+
 
     return (
         <View style={styles.headerContainer}>
@@ -13,7 +40,7 @@ const Header = () => {
                 <FontAwesome name="user" size={50} color="white" style={styles.userIcon} />
                 <View>
                     <Text style={styles.welcomeText}>Welcome,</Text>
-                    <Text style={styles.nameText}>Toufik Hasan Labib</Text>
+                    <Text style={styles.nameText}>{name}</Text>
                 </View>
                 <View style={styles.notificationIconContainer}>
                     <Ionicons name="notifications-sharp" size={35} color="white" />
@@ -29,6 +56,7 @@ const Header = () => {
 };
 
 export default Header;
+
 const styles = StyleSheet.create({
     headerContainer: {
         padding: 20,
@@ -39,7 +67,7 @@ const styles = StyleSheet.create({
     topRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between', 
+        justifyContent: 'space-between',
     },
     userIcon: {
         width: 45,
@@ -58,7 +86,7 @@ const styles = StyleSheet.create({
     },
     notificationIconContainer: {
         alignItems: 'flex-end',
-        flex: 1, 
+        flex: 1,
     },
     searchBar: {
         flexDirection: 'row',
@@ -70,7 +98,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     searchInput: {
-        flex: 1, 
+        flex: 1,
         marginLeft: 10,
         color: Colors.BLACK,
         fontFamily: 'outfit-bold',
