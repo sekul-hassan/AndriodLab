@@ -32,10 +32,10 @@ const Category = () => {
             }}>
                 <Text style={{
                     paddingLeft: 3,
-                    fontFamily: "outfit-medium",
-                    color: Colors.SKY,
+                    fontFamily: "outfit-bold",
+                    color: Colors.BLACK,
                 }}>Category</Text>
-                <Text style={{ fontFamily: 'outfit-medium', color: Colors.SKY, }}>View All</Text>
+                <Text style={{ fontFamily: 'outfit-bold', color: Colors.BLACK, }}>View All</Text>
             </View>
 
             <View style={{ flexDirection: 'row', marginLeft: 3 }}>
