@@ -14,6 +14,8 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
+
+
 const Semester = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
