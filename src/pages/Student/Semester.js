@@ -13,6 +13,7 @@ import { Colors } from '../../assets/Colors';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import Payment from "../../components/Student/Payment";
 
 const Semester = () => {
   const [fullName, setFullName] = useState('');
@@ -21,6 +22,9 @@ const Semester = () => {
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [selectedSemester, setSelectedSemester] = useState('');
   const [openSession, setOpenSession] = useState(false);
+  const [display,setDisplay] = useState(false);
+
+  const navigation = useNavigation();
 
   const coursesData = {
     'Semester 1': [
@@ -53,15 +57,15 @@ const Semester = () => {
   };
 
   const handleSubmit = () => {
-    console.log('Full Name:', fullName);
-    console.log('Registration Roll:', registrationRoll);
-    console.log('Exam Roll:', examRoll);
-    console.log('Selected Semester:', selectedSemester);
-    console.log('Selected Courses:', selectedCourses);
+    console.log(selectedSemester)
+    console.log(selectedCourses)
+    const tk = calculateTotalTk();
+
+    navigation.navigate('Payment', {fullName,examRoll,registrationRoll,selectedCourses,selectedSemester,tk });
+
     console.log('Total Tk:', calculateTotalTk());
   };
 
-  const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, [navigation]);
@@ -70,7 +74,7 @@ const Semester = () => {
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         style={styles.container}
-       
+
       >
         <Text style={styles.title}>Semester Form Fill Up</Text>
         <ScrollView

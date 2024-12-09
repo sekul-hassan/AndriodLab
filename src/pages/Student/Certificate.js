@@ -5,6 +5,7 @@ import { TextInput } from 'react-native-gesture-handler'
 import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import DropDownPicker from 'react-native-dropdown-picker';
+import axios from "axios";
 
 const Certificate = () => {
 
@@ -47,18 +48,19 @@ const Certificate = () => {
 
    
     const handleSubmit = () => {
-       
+       const tk = 1000;
         const formData = {
-            fullName,
-            email,
-            registrationRoll,
-            examRoll,
-            selectedSession,
-            selectedSemester,
-            examYear,
+            name:fullName,
+            regiNo:registrationRoll,
+            examRoll:examRoll,
+            session:selectedSession,
+            semester:selectedSemester,
+            examYear:examYear,
+            bill:tk
         };
 
         console.log(formData);
+        navigation.navigate('Payment-Certificate',{fullName, examRoll, registrationRoll, selectedSemester,selectedSession,examYear, tk})
         
     };
 
@@ -67,7 +69,8 @@ const Certificate = () => {
             padding: 30,
             backgroundColor: Colors.WHITE,
             height: '100%',
-            paddingTop: 80,
+            paddingTop: 20,
+            flex: 1
         }} >
             <Text
                 style={{
@@ -115,9 +118,8 @@ const Certificate = () => {
 
             {/* Registration Roll */}
             <View style={{ marginTop: 10 }}>
-                <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Registration Roll</Text>
+                <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Registration No</Text>
                 <TextInput
-                    secureTextEntry={true}
                     style={styles.input}
                     placeholder='Enter Registration Number'
                     value={registrationRoll}
@@ -129,7 +131,6 @@ const Certificate = () => {
             <View style={{ marginTop: 10 }}>
                 <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Exam Roll</Text>
                 <TextInput
-                    secureTextEntry={true}
                     style={styles.input}
                     placeholder='Enter Your Exam Roll'
                     value={examRoll}
@@ -156,7 +157,6 @@ const Certificate = () => {
             <View style={{ marginTop: 10 }}>
                 <Text style={{ fontFamily: 'outfit-medium', marginVertical: 2 }}>Exam Year</Text>
                 <TextInput
-                    secureTextEntry={true}
                     style={styles.input}
                     placeholder='Enter Your Exam Year'
                     value={examYear}

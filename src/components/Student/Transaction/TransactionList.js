@@ -1,19 +1,32 @@
 import {FlatList, View,StyleSheet,Text} from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const TransactionList = () => {
 
 
-
+    const [data,setData] = useState([]);
     // const user = auth.currentUser;
-
+    useEffect(() => {
+        axios.get("http://192.168.137.1:5000/api/transaction/getAllTransaction",{
+            headers:{
+                email: "Sakib@gmail.com",
+            }
+        }).then((response) => {
+            setData(response.data.transactions);
+            console.log(response.data.transactions);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }, []);
     const transaction = [
         {
             "id": "1",
             "amount": 150.00,
             "date": "2024-10-26",
             "type": "credit",
-            "description": "Salary payment"
+            "description": "Salary"
         },
         {
             "id": "2",
@@ -43,17 +56,18 @@ const TransactionList = () => {
         <View style={styles.itemContainer}>
             <FontAwesome name="user" size={50} color="black"  />
             <View >
-                <Text style={styles.description}>{item.description}</Text>
-                <Text style={styles.date}>Date: {item.date}</Text>
-                <Text style={styles.type}>Type: {item.type}</Text>
+                <Text style={styles.description}>{item.title}</Text>
+                <Text style={styles.date}>Date: {new Date(item.createdAt).toLocaleDateString()}</Text>
+                <Text style={styles.type}>Type: {item.card}</Text>
             </View>
-            <Text style={styles.amount}>Amount: ${item.amount.toFixed(2)}</Text>
+            <Text style={styles.amount}>Amount: ${item.amount}</Text>
         </View>
     );
 
+
     return (
         <FlatList
-            data={transaction}
+            data={data}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             style={styles.list}
