@@ -1,59 +1,62 @@
 import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';  // Import Icon
-
-import Home from '../../../pages/ExamOffice/Home';
-import ApprovalList from '../../../pages/ExamOffice/ApprovalList';
-import DeptAuthrity from '../../../pages/ExamOffice/DeptAuthrity';
-import HallAuthroty from '../../../pages/ExamOffice/HallAuthroty';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-// Assuming Colors is defined somewhere or use directly here
+
+import Home from '../../../pages/ExamOffice/Home';
+import ProfileExam from '../../../pages/ExamOffice/ProfileExam';
+
+
 const Colors = {
-  WHITE: '#ffffff',
-  BLACK: '#000000',
+    WHITE: '#ffffff',
+    BLACK: '#000000',
+    ACTIVE_TAB: '#000000', 
+    INACTIVE_TAB: '#000000', 
+    BACKGROUND: '#f9f9f9', 
 };
 
 const TablayoutExamOffice = () => {
-  const Tab = createBottomTabNavigator();
+    const Tab = createBottomTabNavigator();
+    const navigation = useNavigation();
 
-  const navigation = useNavigation();
-  useEffect(() => {
-      navigation.setOptions({
-          headerShown: false,
-      });
-  }, []);
 
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: true,
-        tabBarActiveTintColor: Colors.WHITE,
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
+    useEffect(() => {
+        navigation.setOptions({
+            headerShown: false,
+        });
+    }, []);
 
-          // Set icon name based on the screen
-          if (route.name === 'Home') {
-            iconName = 'home-outline';
-          } else if (route.name === 'Approval List') {
-            iconName = 'mail-unread-sharp';
-          } else if (route.name === 'Dept Authority') {
-            iconName = 'storefront';
-          } else if (route.name === 'Hall Authority') {
-            iconName = 'business';
-          }
- 
-          return <Icon name={iconName} size={30} color={color} />;
-        },
-      })}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Approval List" component={ApprovalList} />
-      <Tab.Screen name="Dept Authority" component={DeptAuthrity} />
-      <Tab.Screen name="Hall Authority" component={HallAuthroty} />
-    </Tab.Navigator>
-  );
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                headerShown: false, 
+                tabBarActiveTintColor: Colors.ACTIVE_TAB, 
+                tabBarInactiveTintColor: Colors.INACTIVE_TAB, 
+                tabBarStyle: {
+                    backgroundColor: Colors.BACKGROUND, 
+                    height: 60, 
+                },
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'home' : 'home-outline'; 
+                    } else if (route.name === 'Profile') {
+                        iconName = focused ? 'person' : 'person-outline'; 
+                    }
+                    return <Icon name={iconName} size={28} color={color} />;
+                },
+                tabBarLabelStyle: {
+                    fontSize: 12, 
+                    fontWeight: '600', 
+                },
+            })}
+        >
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Profile" component={ProfileExam} />
+        </Tab.Navigator>
+    );
 };
 
 export default TablayoutExamOffice;

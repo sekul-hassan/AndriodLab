@@ -12,6 +12,7 @@ const Tab = createBottomTabNavigator();
 
 function TabsLayout(props) {
     const navigation = useNavigation();
+    
     useEffect(() => {
         navigation.setOptions({
             headerShown: false,
@@ -22,8 +23,12 @@ function TabsLayout(props) {
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 headerShown: true,
-                tabBarActiveTintColor: Colors.WHITE,
-            
+                tabBarActiveTintColor: Colors.BLACK, 
+                tabBarInactiveTintColor: Colors.BLACK, 
+                tabBarStyle: {
+                    backgroundColor: '#f9f9f9', 
+                    height: 60, 
+                },
                 tabBarIcon: ({ color, size }) => {
                     let iconName;
 
@@ -37,7 +42,11 @@ function TabsLayout(props) {
                         iconName = 'person-outline';
                     }
 
-                    return <Icon name={iconName}  size={30} color={'balck'} />;
+                    return <Icon name={iconName} size={30} color={color} />; 
+                },
+                tabBarLabelStyle: {
+                    fontSize: 12, 
+                    fontWeight: '600', 
                 },
             })}
         >
@@ -50,4 +59,3 @@ function TabsLayout(props) {
 }
 
 export default TabsLayout;
-
