@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import Home from '../../../pages/ExamOffice/Home';
 import ProfileExam from '../../../pages/ExamOffice/ProfileExam';
+import ApprovalList from "../../../pages/ExamOffice/ApprovalList";
 
 
 const Colors = {
@@ -55,6 +56,7 @@ const TablayoutExamOffice = () => {
         >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Profile" component={ProfileExam} />
+            <Tab.Screen name="approvallist" component={ApprovalList} />
         </Tab.Navigator>
     );
 };

@@ -1,12 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import HeaderShared from '../../components/HeaderShared';
 
 const data = [
-  { id: '1', name: 'John Doe', department: 'Computer Science', regRoll: 'CS101', examRoll: 'EX101', subject: 'Math', date: '2024-11-16' },
-  { id: '2', name: 'Jane Smith', department: 'Physics', regRoll: 'PH102', examRoll: 'EX102', subject: 'Physics', date: '2024-11-16' },
-  // ... other data entries
+  { id: '1', name: 'SEKUL', department: 'Computer Science and Engineering', regRoll: '20200650753', examRoll: '202195', semester: '4-1', date: '2024-11-16' },
+  { id: '1', name: 'SEKUL', department: 'Computer Science and Engineering', regRoll: '20200650753', examRoll: '202195', semester: '3-1', date: '2024-11-16' },
+  { id: '1', name: 'SEKUL', department: 'Computer Science and Engineering', regRoll: '20200650753', examRoll: '202195', semester: '3-2', date: '2024-11-16' },
+  { id: '1', name: 'SEKUL', department: 'Computer Science and Engineering', regRoll: '20200650753', examRoll: '202195', semester: '2-1', date: '2024-11-16' },
+  { id: '1', name: 'SEKUL', department: 'Computer Science and Engineering', regRoll: '20200650753', examRoll: '202195', semester: '2-2', date: '2024-11-16' },
+  { id: '1', name: 'SEKUL', department: 'Computer Science and Engineering', regRoll: '20200650753', examRoll: '202195', semester: '1-1', date: '2024-11-16' },
 ];
 
 const ApprovalList = () => {
@@ -34,7 +36,7 @@ const ApprovalList = () => {
       <Text style={styles.detail}>Department: {item.department}</Text>
       <Text style={styles.detail}>Registration Roll: {item.regRoll}</Text>
       <Text style={styles.detail}>Exam Roll: {item.examRoll}</Text>
-      <Text style={styles.detail}>Subject: {item.subject}</Text>
+      <Text style={styles.detail}>Subject: {item.semester}</Text>
       <Text style={styles.detail}>Date: {item.date}</Text>
 
       <TouchableOpacity

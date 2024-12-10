@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Colors } from '../../assets/Colors'
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
-import DropDownPicker from 'react-native-dropdown-picker';
-import axios from "axios";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const Certificate = () => {
     const [openSession, setOpenSession] = useState(false);
@@ -63,7 +62,7 @@ const Certificate = () => {
     };
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1, backgroundColor: Colors.WHITE,padding:40 }}>
             <ScrollView contentContainerStyle={{ paddingBottom: 80 }} keyboardShouldPersistTaps="handled" nestedScrollEnabled={true}>
                 <Text style={styles.header}>Form Fill Up</Text>
 
